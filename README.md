@@ -1,6 +1,7 @@
 # vue-demo
 
-> A Vue.js project
+> 日常练手到vue项目
+> 基础的vue全家桶使用,部分vue实践及qunne,echarts,播放器实践
 
 ## Build Setup
 
