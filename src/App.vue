@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Music></Music>
+    <Music v-if="$route.name !== 'notFind'"></Music>
     <router-view/>
   </div>
 </template>

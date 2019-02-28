@@ -10,13 +10,16 @@ import 'font-awesome/css/font-awesome.min.css'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/github.css'
 import VueHighlightJS from 'vue-highlightjs'
-import Rectangle from './assets/plug/toast.js'
-import './assets/common.css'
 
+import Hint from './assets/plug/toast.js'
+import './assets/common.css'
+import Http from './assets/commonReq/http.js'
+
+Vue.prototype.$http = new Http()
 Vue.config.productionTip = false
 Vue.use(ElementUI)
 Vue.use(VueHighlightJS)
-Vue.use(Rectangle)
+Vue.use(Hint)
 Vue.directive('highlight', function (el) {
   let blocks = el.querySelectorAll('pre code')
   blocks.forEach((block) => {

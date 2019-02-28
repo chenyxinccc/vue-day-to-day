@@ -5,6 +5,8 @@ import hljs from '@/components/hljs'
 import customForm from '@/components/customForm'
 import echarts from '@/components/echarts'
 import child from '@/components/child'
+import notFind from '@/components/notFind'
+
 Vue.use(Router)
 
 let router = new Router({
@@ -13,15 +15,32 @@ let router = new Router({
     {
       path: '/',
       name: 'demo',
-      redirect: '/home'
+      redirect: 'HelloWorld'
     },
     {
-      path: '/home',
+      path: '/HelloWorld',
       name: 'HelloWorld',
       component: HelloWorld,
       meta: {
-        title: 'home'
-      }
+        title: 'HelloWorld'
+      },
+      children: [
+        {
+          path: 'childfirst',
+          name: 'childfirst',
+          component: child,
+          meta: {
+            title: 'childfirst'
+          }
+        }, {
+          path: 'childlast',
+          name: 'childlast',
+          component: echarts,
+          meta: {
+            title: 'childlast'
+          }
+        }
+      ]
     }, {
       path: '/echarts',
       name: 'echarts',
@@ -39,7 +58,7 @@ let router = new Router({
       },
       children: [
         {
-          path: '/child',
+          path: 'child',
           name: 'child',
           component: child,
           meta: {
@@ -55,8 +74,27 @@ let router = new Router({
       meta: {
         title: 'customForm'
       }
+    },
+    {
+      path: '/notFind',
+      name: 'notFind',
+      component: notFind,
+      meta: {
+        title: 'notFind'
+      }
     }
   ]
+})
+
+router.beforeEach((to, from, next) => {
+  console.log(to)
+  if (to.matched.length === 0) {
+    from.name ? next({
+      name: from.name
+    }) : next('/notFind')
+  } else {
+    next()
+  }
 })
 
 export default router

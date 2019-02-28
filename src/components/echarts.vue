@@ -1,6 +1,11 @@
 <template>
-<div>
-  <div class="content">
+<div class="echarts-demo">
+  <div class="btn-fullscreen" @click="handleFullScreen">
+      <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" :title="fullscreen?`取消全屏`:`全屏`"  placement="bottom">
+          <i class="el-icon-rank"></i>
+      </el-tooltip>
+  </div>
+  <div class="echarts-content">
     <div ref="main" class="main"></div>
   </div>
 </div>
@@ -27,6 +32,7 @@ for (let i = 0; i < 20; i++) {
 export default {
   data () {
     return {
+      fullscreen: false,
       // 初始化空对象
       chart: null,
       // 初始化图表配置
@@ -147,6 +153,33 @@ export default {
       this.chart = echarts.init(this.$refs[ref])
       this.chart.setOption(this.option)
       window.onresize = this.chart.resize
+    },
+    // 全屏事件
+    handleFullScreen () {
+      let element = this.$refs['main']
+      if (this.fullscreen) {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.webkitCancelFullScreen) {
+          document.webkitCancelFullScreen()
+        } else if (document.mozCancelFullScreen) {
+          document.mozCancelFullScreen()
+        } else if (document.msExitFullscreen) {
+          document.msExitFullscreen()
+        }
+      } else {
+        if (element.requestFullscreen) {
+          element.requestFullscreen()
+        } else if (element.webkitRequestFullScreen) {
+          element.webkitRequestFullScreen()
+        } else if (element.mozRequestFullScreen) {
+          element.mozRequestFullScreen()
+        } else if (element.msRequestFullscreen) {
+          // IE11
+          element.msRequestFullscreen()
+        }
+      }
+      this.fullscreen = !this.fullscreen
     }
   },
   mounted () {
@@ -160,10 +193,15 @@ export default {
 }
 </script>
 <style lang="less">
+  .echarts-demo{
+    height: 100%;
+  }
+  .echarts-content{
+    height: 100%;
+  }
   .main {
-    /*需要制定具体高度，以px为单位*/
     width: 100%;
-    height: 800px;
+    height: 100%;
     margin: auto;
     display: inline-block;
   }

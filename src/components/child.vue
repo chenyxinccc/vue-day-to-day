@@ -1,15 +1,18 @@
 <template>
 <div>
+  <el-input v-model="a"/>
   子页面
   <router-view/>
 </div>
-</template>
+</template>a
 <script>
 
 export default {
   name: 'child',
   data () {
-    return {}
+    return {
+      a: 1
+    }
   },
   methods: {
   },

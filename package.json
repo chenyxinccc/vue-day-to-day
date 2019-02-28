@@ -14,10 +14,12 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "axios": "^0.18.0",
     "babel-polyfill": "^6.26.0",
     "css-loader": "^0.28.11",
     "echarts": "^4.2.0-rc.2",
     "element-ui": "^2.4.8",
+    "express": "^4.16.4",
     "font-awesome": "^4.7.0",
     "highlight.js": "^9.13.1",
     "jquery": "^3.3.1",

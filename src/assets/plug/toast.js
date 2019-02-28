@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import template from './toast.vue'
 
-// 公用toast基础构建类
+// toast基础构建类
 class Rectangle {
   constructor () {
     this.toast = undefined
