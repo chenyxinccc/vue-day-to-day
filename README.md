@@ -1,7 +1,7 @@
 # vue-demo
 
 > 日常练手的vue项目
-> 基础的vue全家桶使用,部分vue实践及qunne,echarts,播放器实践
+> 基础的vue全家桶使用,qunne,echarts,音乐播放器实践
 ### 重在学习XD
 
 ## Build Setup
