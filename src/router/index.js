@@ -4,8 +4,9 @@ import HelloWorld from '@/components/HelloWorld'
 import hljs from '@/components/hljs'
 import customForm from '@/components/customForm'
 import echarts from '@/components/echarts'
-import child from '@/components/child'
+import fabricDemo from '@/components/fabricDemo'
 import notFind from '@/components/notFind'
+import drag from '@/components/testdrag'
 
 Vue.use(Router)
 
@@ -28,7 +29,7 @@ let router = new Router({
         {
           path: 'childfirst',
           name: 'childfirst',
-          component: child,
+          component: fabricDemo,
           meta: {
             title: 'childfirst'
           }
@@ -38,6 +39,13 @@ let router = new Router({
           component: echarts,
           meta: {
             title: 'childlast'
+          }
+        }, {
+          path: 'drag',
+          name: 'drag',
+          component: drag,
+          meta: {
+            title: 'drag'
           }
         }
       ]
@@ -55,17 +63,7 @@ let router = new Router({
       component: hljs,
       meta: {
         title: 'hljs'
-      },
-      children: [
-        {
-          path: 'child',
-          name: 'child',
-          component: child,
-          meta: {
-            title: 'child'
-          }
-        }
-      ]
+      }
     },
     {
       path: '/customForm',

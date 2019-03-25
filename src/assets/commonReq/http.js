@@ -6,7 +6,7 @@ import axios from 'axios'
 class Http {
   constructor () {
     // 全局修改axios默认配置
-    // axios.defaults.baseURL = '' //默认路径
+    // axios.defaults.baseURL = process.env.NODE_ENV==='production'?'':'' //默认路径,区别生产和线上环境
     // axios.defaults.headers.common['Authorization'] = AUTH_TOKEN //token
     axios.defaults.timeout = 1000
     axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded'
@@ -19,9 +19,6 @@ class Http {
         config.headers = {
           'Content-Type': 'application/x-www-form-urlencoded'
         }
-        // if(token){
-        //   config.params = {'token':token}
-        // }
         return config
       },
       error => {

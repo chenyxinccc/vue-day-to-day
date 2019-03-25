@@ -57,10 +57,13 @@
     <el-button @click="closeMessage" type="primary">closeAll</el-button>
     <el-button @click="$router.push('/echarts')">echarts</el-button>
     <el-button @click="renderTest" type="primary">render</el-button>
+    <el-button @click="notifyMe" type="primary">notifiy</el-button>
     <div id="renderBox">
     </div>
     <el-button @click="$router.push({name: 'childfirst'})">childfirst</el-button>
     <el-button @click="$router.push('/HelloWorld/childlast')">childlast</el-button>
+    <el-button @click="$router.push('/HelloWorld/drag')">drag</el-button>
+
     <div class="view-box">
       <keep-alive>
         <router-view>
@@ -81,6 +84,7 @@ import 'highlight.js/styles/github.css';
 // import hljsa from './hljs'
 import Vue from 'vue';
 import { mapState, mapActions } from 'vuex'
+import loginPng from '../assets/images/logo.png'
 export default {
   data() {
     return {
@@ -369,6 +373,33 @@ export default {
         }
       }
       this.fullscreen = !this.fullscreen;
+    },
+    notifyMe() {
+      // 先检查浏览器是否支持
+      if (!('Notification' in window)) {
+        console.log('This browser does not support desktop notification');
+      }
+
+      // 检查用户是否同意接受通知
+      else if (Notification.permission === 'granted') {
+        new Notification('dcp平台',{
+          lang: 'zh-CN',
+          icon: loginPng,
+          body: '您有一条新的消息'});
+      }
+
+      // 否则我们需要向用户获取权限
+      else if (Notification.permission !== 'denied') {
+        Notification.requestPermission(function (permission) {
+          // 如果用户同意，就可以向他们发送通知
+          if (permission === 'granted') {
+            new Notification('dcp平台',{
+              lang: 'zh-CN',
+              icon: loginPng,
+              body: '您有一条新的消息'});
+          }
+        });
+      }
     }
   }
 }
@@ -447,7 +478,7 @@ a {
 
 .view-box {
   border: 1px solid green;
-  height: 300px;
+  height: 800px;
 }
 
 </style>
