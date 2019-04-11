@@ -10,4 +10,4 @@ const produceNewsData = () => {
   }
 }
 
-Mock.mock('/goods/list', 'post', produceNewsData)
+Mock.mock('/demo/goods/list', 'post', produceNewsData)
