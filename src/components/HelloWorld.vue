@@ -135,8 +135,14 @@ export default {
   methods: {
     ...mapActions(['add', 'del']),
     test() {
-      this.$http.get('/goods/list').then((data)=>{
+      this.$http.post('/goods/list').then((data)=>{
         console.log(data)
+        this.$msg.success({
+          message: data.message, //显示文字内容
+          handelCLose: true, //显示关闭按钮
+          time: 0, //自动关闭时间 为0则不关闭
+          top: 50 //距离顶部高度
+        })
       })
     },
     renderTest() {

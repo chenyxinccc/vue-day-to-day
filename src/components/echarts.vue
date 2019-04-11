@@ -12,6 +12,8 @@
 </template>
 <script>
 import echarts from 'echarts'
+import CryptoJS from 'crypto-js'
+
 let category = []
 let dottedBase = +new Date()
 let lineData = []
@@ -32,6 +34,7 @@ for (let i = 0; i < 20; i++) {
 export default {
   data () {
     return {
+      aesKey: '',
       fullscreen: false,
       // 初始化空对象
       chart: null,
@@ -180,9 +183,61 @@ export default {
         }
       }
       this.fullscreen = !this.fullscreen
+    },
+    // aes加密测试
+    aesInit () {
+      // 对pad.zeroPadding覆写
+      CryptoJS.pad.ZeroPadding = {
+        pad: function (data, blockSize) {
+          // Shortcut
+          var blockSizeBytes = blockSize * 4
+
+          // Pad
+          data.clamp()
+          data.sigBytes += blockSizeBytes - ((data.sigBytes % blockSizeBytes) || blockSizeBytes)
+        },
+
+        unpad: function (data) {
+          // Shortcut
+          var dataWords = data.words
+
+          // Unpad
+          var i = data.sigBytes - 1
+          while (!((dataWords[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff)) {
+            i--
+          }
+          data.sigBytes = i + 1
+        }
+      }
+      // key值，要和后端的key相同
+      this.aesKey = CryptoJS.enc.Utf8.parse('abcdef0123456789')
+    },
+    Encrypt (word) {
+      const srcs = CryptoJS.enc.Utf8.parse(word)
+      const encrypted = CryptoJS.AES.encrypt(srcs, this.aesKey, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+      })
+      return encrypted.toString()
+    },
+    Decrypt (word) {
+      var decrypt = CryptoJS.AES.decrypt(word, this.aesKey, {
+        mode: CryptoJS.mode.ECB,
+        padding: CryptoJS.pad.Pkcs7
+      })
+      return CryptoJS.enc.Utf8.stringify(decrypt).toString()
+    },
+    aesTest (info) {
+      let a = this.Encrypt(info)
+      let b = this.Decrypt('STKZ9QGr3kF0EH7g7UHWQYoUDskZmwXPUBcldEArzXY=')
+      console.log(info, a, b)
     }
   },
   mounted () {
+    console.log(CryptoJS)
+    this.aesInit()
+    this.aesTest('测试aes')
+
     this.$nextTick(function () {
       this.drawGraph('main')
     })

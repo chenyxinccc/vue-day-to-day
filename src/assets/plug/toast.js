@@ -1,8 +1,19 @@
+/**
+ * 消息提示插件
+ * use => this.$msg[type]
+ * options:
+ *   param [message] 消息文本内容
+ *   param [handelCLose] 是否展示关闭按钮   default: false
+ *   param [time] 自动关闭时间 为0则不关闭   default: 4000  unit: ms
+ *   param [top]  距离顶部高度              default: 30    unit: px
+ *   author chenyx
+ */
+
 import Vue from 'vue'
 import template from './toast.vue'
 
 // toast基础构建类
-class Rectangle {
+class Hint {
   constructor () {
     this.toast = undefined
     this.activeToasts = []
@@ -24,11 +35,10 @@ class Rectangle {
     // 产生组件实例
     this.toast.vm = this.toast.$mount()
     this.toast.visible = true
-    // 将组件DOM实体插入
+    // 将组件DOM实体加入
     document.body.appendChild(this.toast.vm.$el)
     this.activeToasts.push(this.toast)
   }
-
   success (options) {
     this.add(options, 'success')
   }
@@ -41,7 +51,7 @@ class Rectangle {
     this.add(options, 'warning')
   }
 
-  // 关闭当前message
+  // 关闭当前提示
   close () {
     let activeIndex
     const activeLength = this.activeToasts.length
@@ -55,9 +65,10 @@ class Rectangle {
     this.activeToasts.splice(activeIndex, 1)
   }
 
-  // 关闭全部message
+  // 关闭全部提示
   allClose () {
-    for (let i = this.activeToasts.length - 1; i >= 0; i--) {
+    const length = this.activeToasts.length
+    for (let i = length - 1; i >= 0; i--) {
       this.activeToasts[i].close()
     }
     this.activeToasts = []
@@ -65,8 +76,8 @@ class Rectangle {
 
   // 提供给vue的安装方法
   static install (Vue, options) {
-    Vue.prototype.$msg = new Rectangle()
+    Vue.prototype.$msg = new Hint()
   }
 }
 
-export default Rectangle
+export default Hint

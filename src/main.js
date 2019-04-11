@@ -13,6 +13,7 @@ import VueHighlightJS from 'vue-highlightjs'
 
 import Hint from './assets/plug/toast.js'
 import './assets/common.css'
+import './assets/mock/index.js'
 import Http from './assets/commonReq/http.js'
 
 Vue.prototype.$http = new Http()

@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import hljs from '@/components/hljs'
-import customForm from '@/components/customForm'
-import echarts from '@/components/echarts'
-import fabricDemo from '@/components/fabricDemo'
-import notFind from '@/components/notFind'
-import drag from '@/components/testdrag'
+// import HelloWorld from '@/components/HelloWorld'
+// import hljs from '@/components/hljs'
+// import customForm from '@/components/customForm'
+// import echarts from '@/components/echarts'
+// import fabricDemo from '@/components/fabricDemo'
+// import notFind from '@/components/notFind'
+// import drag from '@/components/testdrag'
 
 Vue.use(Router)
 
@@ -21,7 +21,7 @@ let router = new Router({
     {
       path: '/HelloWorld',
       name: 'HelloWorld',
-      component: HelloWorld,
+      component: () => import('@/components/HelloWorld'),
       meta: {
         title: 'HelloWorld'
       },
@@ -29,21 +29,21 @@ let router = new Router({
         {
           path: 'childfirst',
           name: 'childfirst',
-          component: fabricDemo,
+          component: () => import('@/components/fabricDemo'),
           meta: {
             title: 'childfirst'
           }
         }, {
           path: 'childlast',
           name: 'childlast',
-          component: echarts,
+          component: () => import('@/components/echarts'),
           meta: {
             title: 'childlast'
           }
         }, {
           path: 'drag',
           name: 'drag',
-          component: drag,
+          component: () => import('@/components/testdrag'),
           meta: {
             title: 'drag'
           }
@@ -52,7 +52,7 @@ let router = new Router({
     }, {
       path: '/echarts',
       name: 'echarts',
-      component: echarts,
+      component: () => import('@/components/echarts'),
       meta: {
         title: 'echarts'
       }
@@ -60,7 +60,7 @@ let router = new Router({
     {
       path: '/hljs',
       name: 'hljs',
-      component: hljs,
+      component: () => import('@/components/hljs'),
       meta: {
         title: 'hljs'
       }
@@ -68,7 +68,7 @@ let router = new Router({
     {
       path: '/customForm',
       name: 'customForm',
-      component: customForm,
+      component: () => import('@/components/customForm'),
       meta: {
         title: 'customForm'
       }
@@ -76,7 +76,7 @@ let router = new Router({
     {
       path: '/notFind',
       name: 'notFind',
-      component: notFind,
+      component: () => import('@/components/notFind'),
       meta: {
         title: 'notFind'
       }
@@ -85,7 +85,7 @@ let router = new Router({
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to)
+  console.log(to, from)
   if (to.matched.length === 0) {
     from.name ? next({
       name: from.name
