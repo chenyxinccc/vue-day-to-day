@@ -1,12 +1,4 @@
 <template>
-<!--   <div id="app">
-    <h2>list:</h2>
-    <el-scrollbar wrap-class="list" wrap-style="color: red;" view-style="font-weight: bold;" view-class="view-box" :native="false">
-      <div v-for="value in num" :key="vlaue">
-        {{value}}
-      </div>
-    </el-scrollbar>
-  </div> -->
     <el-menu class="el-menu-vertical" :default-active="$route.name" @open="handleOpen" @close="handleClose"
       @select="selectNav" :collapse="isCollapse" :background-color="theme" text-color="#fff" active-text-color="#409dff">
       <el-scrollbar wrap-class="layout-menu-scrollbar" ref="scroll">
@@ -70,14 +62,6 @@ export default {
 
 </script>
 <style lang="less" scoped>
-// #app {
-//   height: 300px;
-//   overflow: hidden;
-// }
-// 展示列表的区域，超过200px出现滚动条
-// .list {
-//   max-height: 200px;
-// }
 
 .el-menu-vertical {
   height: 100%;

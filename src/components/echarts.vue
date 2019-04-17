@@ -203,6 +203,7 @@ export default {
       .main {
         width: 100%;
         height: 100%;
+        min-height: 400px;
         margin: auto;
         display: inline-block;
       }
@@ -211,7 +212,7 @@ export default {
       display: inline-block;
       width: 20px;
       height: 20px;
-      right: 24px;
+      right: 6px;
       top: 14px;
       border-radius: 5px;
       position: absolute;
