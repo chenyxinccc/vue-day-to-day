@@ -19,5 +19,8 @@ const routeNav = [{
 }, {
   name: 'fabricDemo',
   path: 'fabricDemo'
+}, {
+  name: 'aesDemo',
+  path: 'aesDemo'
 }]
 export default routeNav

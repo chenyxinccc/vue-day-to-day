@@ -62,6 +62,13 @@ let router = new Router({
           meta: {
             title: 'fabricDemo'
           }
+        }, {
+          path: '/aesDemo',
+          name: 'aesDemo',
+          component: () => import('@/components/aesDemo'),
+          meta: {
+            title: 'aesDemo'
+          }
         }]
     }
   ]
