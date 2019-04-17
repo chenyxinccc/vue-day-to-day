@@ -54,9 +54,6 @@ export default {
     left: 180px;
     overflow: hidden;
 
-    .layout-scrollbar {
-      margin: 0 !important;
-    }
     /deep/ .el-scrollbar{
       height: 100%;
       .el-scrollbar__view{
@@ -66,6 +63,7 @@ export default {
     /deep/ .el-scrollbar__wrap {
       overflow: visible;
       overflow-x: hidden;
+      margin: 0 !important;
     }
 
     /deep/ .layout-view-content {
