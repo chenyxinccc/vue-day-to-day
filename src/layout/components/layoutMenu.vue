@@ -1,7 +1,16 @@
 <template>
+<!--   <div id="app">
+    <h2>list:</h2>
+    <el-scrollbar wrap-class="list" wrap-style="color: red;" view-style="font-weight: bold;" view-class="view-box" :native="false">
+      <div v-for="value in num" :key="vlaue">
+        {{value}}
+      </div>
+    </el-scrollbar>
+  </div> -->
     <el-menu class="el-menu-vertical" :default-active="$route.name" @open="handleOpen" @close="handleClose"
       @select="selectNav" :collapse="isCollapse" :background-color="theme" text-color="#fff" active-text-color="#409dff">
       <el-scrollbar wrap-class="layout-menu-scrollbar" ref="scroll">
+        <!-- <div style="width:200px;height:1000px;background: red;">1231</div> -->
         <template v-for="(item, i) in routeData">
           <el-submenu v-if="item.children" :index="item.path" :key="i">
             <template slot="title">
@@ -25,6 +34,7 @@
       </el-scrollbar>
     </el-menu>
 </template>
+
 <script>
 import routeData from '@/assets/routeData/data.js'
 
@@ -33,7 +43,8 @@ export default {
   data () {
     return {
       isCollapse: false,
-      routeData: []
+      routeData: [],
+      num: 30
     }
   },
   mounted () {
@@ -59,9 +70,18 @@ export default {
 
 </script>
 <style lang="less" scoped>
+// #app {
+//   height: 300px;
+//   overflow: hidden;
+// }
+// 展示列表的区域，超过200px出现滚动条
+// .list {
+//   max-height: 200px;
+// }
+
 .el-menu-vertical {
   height: 100%;
-
+  overflow: hidden;
   /deep/ .el-menu-item {
     display: flex;
     justify-content: flex-start;
@@ -73,5 +93,14 @@ export default {
     justify-content: flex-start;
     align-items: center;
   }
+
+  .el-scrollbar{
+    height: 100%;
+  }
+  /deep/ .layout-menu-scrollbar{
+    overflow-x: hidden;
+  }
+
 }
+
 </style>

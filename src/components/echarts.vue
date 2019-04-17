@@ -211,7 +211,7 @@ export default {
       display: inline-block;
       width: 20px;
       height: 20px;
-      right: 6px;
+      right: 24px;
       top: 14px;
       border-radius: 5px;
       position: absolute;

@@ -60,6 +60,15 @@ export default {
   }
 }
 </script>
+<style lang="less">
+.layout-tag-content{
+  .el-scrollbar{
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
+}
+</style>
 <style lang="less" scope>
 .layout-tag-content{
   height: 36px;
@@ -68,10 +77,9 @@ export default {
   white-space: nowrap;
   margin-right: 30px;
   overflow: hidden;
-
-  /deep/ .el-scrollbar{
-    display: flex;
-    width: 100%;
+  .layout-tag-scrollbar {
+    overflow: hidden;
+    margin-right: 0 !important;
   }
 
   .layout-tag-item{

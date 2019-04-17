@@ -5,7 +5,9 @@
     </div>
     <div class="layout-right-view">
       <layout-nav></layout-nav>
-      <router-view class="layout-view-content" v-loading="loading"></router-view>
+      <el-scrollbar wrap-class="layout-scrollbar" ref="scroll">
+        <router-view class="layout-view-content" v-loading="loading"></router-view>
+      </el-scrollbar>
     </div>
   </div>
 </template>
@@ -43,7 +45,6 @@ export default {
     width: 180px;
     height: 100%;
     float: left;
-    overflow: scroll;
   }
 
   .layout-right-view {
@@ -51,12 +52,23 @@ export default {
     height: 100%;
     position: absolute;
     left: 180px;
-    .layout-view-content {
+    overflow: hidden;
+
+    /deep/ .el-scrollbar{
       height: 100%;
-      min-height: 600px;
+      .el-scrollbar__view{
+        height: 100%;
+      }
+    }
+    /deep/ .el-scrollbar__wrap {
+      overflow: visible;
+      overflow-x: hidden;
+    }
+
+    /deep/ .layout-view-content {
+      height: 100%;
       min-width: 800px;
-      padding: 10px 0 10px 10px;
-      overflow: scroll;
+      padding: 10px;
     }
   }
 }
