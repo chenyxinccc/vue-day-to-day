@@ -1,18 +1,17 @@
 <template>
-<div class="echarts-demo">
-  <div class="btn-fullscreen" @click="handleFullScreen">
+<div class="echarts-demo" ref="echartsDemo">
+  <div class="echarts-demo-fullscreen" @click="handleFullScreen">
       <el-tooltip effect="dark" :content="fullscreen?`取消全屏`:`全屏`" :title="fullscreen?`取消全屏`:`全屏`"  placement="bottom">
           <i class="el-icon-rank"></i>
       </el-tooltip>
   </div>
-  <div class="echarts-content">
+  <div class="echarts-demo-content">
     <div ref="main" class="main"></div>
   </div>
 </div>
 </template>
 <script>
 import echarts from 'echarts'
-import CryptoJS from 'crypto-js'
 
 let category = []
 let dottedBase = +new Date()
@@ -40,7 +39,7 @@ export default {
       chart: null,
       // 初始化图表配置
       option: {
-        backgroundColor: '#0f375f',
+        backgroundColor: '#2f4156',
         tooltip: {
           trigger: 'axis',
           axisPointer: {
@@ -150,6 +149,11 @@ export default {
       }
     }
   },
+  mounted () {
+    this.$nextTick(function () {
+      this.drawGraph('main')
+    })
+  },
   methods: {
     drawGraph (ref) {
       // 绘图方法
@@ -159,7 +163,7 @@ export default {
     },
     // 全屏事件
     handleFullScreen () {
-      let element = this.$refs['main']
+      let element = this.$refs['echartsDemo']
       if (this.fullscreen) {
         if (document.exitFullscreen) {
           document.exitFullscreen()
@@ -183,81 +187,38 @@ export default {
         }
       }
       this.fullscreen = !this.fullscreen
-    },
-    // aes加密测试
-    aesInit () {
-      // 对pad.zeroPadding覆写
-      CryptoJS.pad.ZeroPadding = {
-        pad: function (data, blockSize) {
-          // Shortcut
-          var blockSizeBytes = blockSize * 4
-
-          // Pad
-          data.clamp()
-          data.sigBytes += blockSizeBytes - ((data.sigBytes % blockSizeBytes) || blockSizeBytes)
-        },
-
-        unpad: function (data) {
-          // Shortcut
-          var dataWords = data.words
-
-          // Unpad
-          var i = data.sigBytes - 1
-          while (!((dataWords[i >>> 2] >>> (24 - (i % 4) * 8)) & 0xff)) {
-            i--
-          }
-          data.sigBytes = i + 1
-        }
-      }
-      // key值，要和后端的key相同
-      this.aesKey = CryptoJS.enc.Utf8.parse('abcdef0123456789')
-    },
-    Encrypt (word) {
-      const srcs = CryptoJS.enc.Utf8.parse(word)
-      const encrypted = CryptoJS.AES.encrypt(srcs, this.aesKey, {
-        mode: CryptoJS.mode.ECB,
-        padding: CryptoJS.pad.Pkcs7
-      })
-      return encrypted.toString()
-    },
-    Decrypt (word) {
-      var decrypt = CryptoJS.AES.decrypt(word, this.aesKey, {
-        mode: CryptoJS.mode.ECB,
-        padding: CryptoJS.pad.Pkcs7
-      })
-      return CryptoJS.enc.Utf8.stringify(decrypt).toString()
-    },
-    aesTest (info) {
-      let a = this.Encrypt(info)
-      let b = this.Decrypt('STKZ9QGr3kF0EH7g7UHWQYoUDskZmwXPUBcldEArzXY=')
-      console.log(info, a, b)
     }
-  },
-  mounted () {
-    console.log(CryptoJS)
-    this.aesInit()
-    this.aesTest('测试aes')
-
-    this.$nextTick(function () {
-      this.drawGraph('main')
-    })
   },
   destroyed () {
     window.onresize = null
   }
 }
 </script>
-<style lang="less">
+<style lang="less" scoped>
   .echarts-demo{
     height: 100%;
-  }
-  .echarts-content{
-    height: 100%;
-  }
-  .main {
-    width: 100%;
-    height: 100%;
-    margin: auto;
-    display: inline-block;
+    position: relative;
+    .echarts-demo-content{
+      height: 100%;
+      .main {
+        width: 100%;
+        height: 100%;
+        margin: auto;
+        display: inline-block;
+      }
+    }
+    .echarts-demo-fullscreen{
+      display: inline-block;
+      width: 20px;
+      height: 20px;
+      right: 6px;
+      top: 14px;
+      border-radius: 5px;
+      position: absolute;
+      z-index: 99;
+      background-color: #fff;
+      line-height: 22px;
+      cursor: pointer;
+    }
   }
 </style>

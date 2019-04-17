@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <canvas id="canvas" width="800" height="300"></canvas>
+  <div class="fabric-content">
+    <canvas id="canvas" width="800px" height="800px"></canvas>
   </div>
 </template>
 <script>
@@ -34,8 +34,17 @@ export default {
   }
 }
 </script>
-<style scoped lang="less">
-#canvas{
-  border: 1px solid #eee;
+<style lang="less">
+.fabric-content{
+  width: 100%;
+  text-align: center;
+  .canvas-container {
+    margin: 0 auto;
+    display: inline-block;
+  }
+  #canvas{
+    border: 1px solid #eee;
+    border-radius: 5px;
+  }
 }
 </style>

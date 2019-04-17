@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 const random = Mock.Random
 
-const produceNewsData = () => {
+const listData = () => {
   let dataArray = new Array(10).fill(random.csentence(1, 10))
   return {
     type: 1,
@@ -10,4 +10,4 @@ const produceNewsData = () => {
   }
 }
 
-Mock.mock('/demo/goods/list', 'post', produceNewsData)
+Mock.mock('/demo/goods/list', 'post', listData)

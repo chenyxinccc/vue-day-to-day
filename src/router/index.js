@@ -1,12 +1,6 @@
 import Vue from 'vue'
+import store from '../store/index.js'
 import Router from 'vue-router'
-// import HelloWorld from '@/components/HelloWorld'
-// import hljs from '@/components/hljs'
-// import customForm from '@/components/customForm'
-// import echarts from '@/components/echarts'
-// import fabricDemo from '@/components/fabricDemo'
-// import notFind from '@/components/notFind'
-// import drag from '@/components/testdrag'
 
 Vue.use(Router)
 
@@ -15,82 +9,73 @@ let router = new Router({
   routes: [
     {
       path: '/',
-      name: 'demo',
-      redirect: 'HelloWorld'
+      name: 'redirect',
+      redirect: 'home'
     },
     {
-      path: '/HelloWorld',
-      name: 'HelloWorld',
-      component: () => import('@/components/HelloWorld'),
+      path: '/home',
+      name: 'home',
+      component: () => import('@/layout/layout'),
       meta: {
-        title: 'HelloWorld'
+        title: '主页'
       },
       children: [
         {
-          path: 'childfirst',
-          name: 'childfirst',
+          path: '/echarts',
+          component: () => import('@/components/echarts'),
+          name: 'echarts',
+          meta: {
+            title: 'echarts'
+          }
+        }, {
+          path: '/webUpload',
+          component: () => import('@/assets/vue-webuploader/page'),
+          name: 'webUpload',
+          meta: {
+            title: 'webUpload实践'
+          }
+        }, {
+          path: '/messageDemo',
+          component: () => import('@/components/messageDemo'),
+          name: 'messageDemo',
+          meta: {
+            title: 'message插件'
+          }
+        }, {
+          path: '/drag',
+          component: () => import('@/components/testDrag'),
+          name: 'drag',
+          meta: {
+            title: '嵌套drag'
+          }
+        }, {
+          path: '/axios',
+          component: () => import('@/components/axiosOrMock'),
+          name: 'axiosOrMock',
+          meta: {
+            title: 'axios及mock'
+          }
+        }, {
+          path: '/fabricDemo',
+          name: 'fabricDemo',
           component: () => import('@/components/fabricDemo'),
           meta: {
-            title: 'childfirst'
+            title: 'fabricDemo'
           }
-        }, {
-          path: 'childlast',
-          name: 'childlast',
-          component: () => import('@/components/echarts'),
-          meta: {
-            title: 'childlast'
-          }
-        }, {
-          path: 'drag',
-          name: 'drag',
-          component: () => import('@/components/testdrag'),
-          meta: {
-            title: 'drag'
-          }
-        }
-      ]
-    }, {
-      path: '/echarts',
-      name: 'echarts',
-      component: () => import('@/components/echarts'),
-      meta: {
-        title: 'echarts'
-      }
-    },
-    {
-      path: '/hljs',
-      name: 'hljs',
-      component: () => import('@/components/hljs'),
-      meta: {
-        title: 'hljs'
-      }
-    },
-    {
-      path: '/customForm',
-      name: 'customForm',
-      component: () => import('@/components/customForm'),
-      meta: {
-        title: 'customForm'
-      }
-    },
-    {
-      path: '/notFind',
-      name: 'notFind',
-      component: () => import('@/components/notFind'),
-      meta: {
-        title: 'notFind'
-      }
+        }]
     }
   ]
 })
 
 router.beforeEach((to, from, next) => {
-  console.log(to, from)
+  store.dispatch('loading/commitSetLoading', true)
   if (to.matched.length === 0) {
+    store.dispatch('loading/commitSetLoading', false)
     from.name ? next({
       name: from.name
     }) : next('/notFind')
   } else {
+    store.dispatch('loading/commitSetLoading', false)
     next()
   }
 })

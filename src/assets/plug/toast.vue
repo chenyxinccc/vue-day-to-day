@@ -83,11 +83,11 @@ export default {
   min-width: 80px;
   min-height: 20px;
   line-height: 1;
-  padding: 5px 80px;
+  padding: 5px 30px;
   border-radius: 4px;
   text-align: center;
   position: fixed;
-  left: 50%;
+  left: calc(50% + 90px);
   transform:translate(-50%, 0%);
   .vue-toast__label{
     font-size: 14px;

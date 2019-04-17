@@ -1,7 +1,7 @@
 <template>
   <div class="notFind-box">
     <h1>(ha,啥也没有)</h1>
-    <h2>你要访问的页面没有被找到;</h2>
+    <h2>你要访问的页面没有被找到</h2>
   </div>
 </template>
 <script>

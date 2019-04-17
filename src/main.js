@@ -3,30 +3,22 @@
 import Vue from 'vue'
 import App from './App'
 import router from './router'
-import store from './store.js'
+import store from './store/index.js'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import 'font-awesome/css/font-awesome.min.css'
-import hljs from 'highlight.js'
-import 'highlight.js/styles/github.css'
-import VueHighlightJS from 'vue-highlightjs'
+import '../theme/index.css'
 
 import Hint from './assets/plug/toast.js'
-import './assets/common.css'
+import './assets/css/common.css'
 import './assets/mock/index.js'
+import './assets/directive/drag.js'
 import Http from './assets/commonReq/http.js'
 
 Vue.prototype.$http = new Http()
 Vue.config.productionTip = false
 Vue.use(ElementUI)
-Vue.use(VueHighlightJS)
 Vue.use(Hint)
-Vue.directive('highlight', function (el) {
-  let blocks = el.querySelectorAll('pre code')
-  blocks.forEach((block) => {
-    hljs.highlightBlock(block)
-  })
-})
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

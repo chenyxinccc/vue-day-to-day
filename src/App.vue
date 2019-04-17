@@ -1,16 +1,23 @@
 <template>
   <div id="app">
-    <Music v-if="$route.name !== 'notFind'"></Music>
+    <music v-if="isShow"></music>
     <router-view/>
   </div>
 </template>
 
 <script>
-import Music from '@/components/Music'
+import Music from '@/components/music'
 export default {
   name: 'App',
   components: {
     Music
+  },
+  computed: {
+    isShow () {
+      if (this.$route.name !== 'notFind') {
+        return true
+      }
+    }
   }
 }
 </script>

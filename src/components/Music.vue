@@ -1,6 +1,6 @@
 <template>
   <div class="music">
-    <el-card class="music-box" shadow="hover" :class="{'music-box__hidden': showShrink}">
+    <el-card class="music-box" :style="{backgroundColor: theme}" shadow="hover" :class="{'music-box__hidden': showShrink}">
       <h2 class="music-box__title" :title="activeMusicName+'____'+activeMusicSinger">
         {{activeMusicName}}&nbsp;<span>&nbsp;&nbsp;{{activeMusicSinger}}</span>
       </h2>
@@ -64,7 +64,7 @@
         <i class="fa fa-list fa-1x music-box__list" title="播放列表" v-popover:popover></i>
       </div>
     </el-card>
-    <div class="music-shirink" :class="{'music-box__hidden': !showShrink}" @click="showShrink = false" title="打开应用">
+    <div class="music-shirink" :style="{backgroundColor: theme}" :class="{'music-box__hidden': !showShrink}" @click="showShrink = false" title="打开应用">
       <i class="el-icon-service" :class="{rotate: isPlay}"></i>
     </div>
   </div>
@@ -82,7 +82,7 @@ import audio4 from '@/assets/music/4.mp3'
 export default {
   data () {
     return {
-      showShrink: false,
+      showShrink: true,
       gridData: [],
       activeMusicName: '',
       activeMusicSinger: '',
@@ -121,8 +121,10 @@ export default {
       durationTime: null
     }
   },
-  props: [],
-  components: {
+  computed: {
+    theme () {
+      return this.$store.state.setting.theme || '#c62f2f'
+    }
   },
   watch: {
     activeNum () {
@@ -246,31 +248,7 @@ export default {
   }
 }
 </script>
-<style type="text/css">
-  .music-box__schedule .el-slider__bar{
-    background-color: #ff8c26;
-  }
-  .music-box__schedule .el-slider__button{
-    border: #ff8c26;
-  }
-  .music-box__volume .music-volume__slider .el-slider__runway{
-    margin-right: 0;
-    margin-left: 16px;
-  }
-  .music .el-card{
-    border: none;
-  }
-</style>
-<style type="text/css" scoped>
-  *{
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-  body{
-    font-family: 'PT Serif', 'Microsoft YaHei', serif;
-    color: white;
-  }
+<style lang="less" scoped>
   .music{
     position: fixed;
     right: 5px;
@@ -293,6 +271,19 @@ export default {
     transition: all .2s;
     z-index: 97;
     overflow: hidden;
+  }
+  /deep/ .music-box__schedule .el-slider__bar{
+    background-color: #ff8c26;
+  }
+  /deep/  .music-box__schedule .el-slider__button{
+    border: #ff8c26;
+  }
+  /deep/ .music-box__volume .music-volume__slider .el-slider__runway{
+    margin-right: 0;
+    margin-left: 16px;
+  }
+  .music .el-card{
+    border: none;
   }
   .music-box{
     background: #c62f2f;

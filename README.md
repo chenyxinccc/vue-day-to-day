@@ -1,9 +1,10 @@
 # vue-demo
 
-> 日常练手的vue项目
-> 基础的vue全家桶使用,qunne,echarts,音乐播放器,消息插件 mock接口实践
-> 部分代码待整理
-### 重在学习XD
+> 日常开发和学习的实践项目
+> 
+> 基础的vue全家桶使用,qunne,echarts,音乐播放器,消息插件 mock接口实践等，
+> 其他功能代码待整理
+### 实践是检验真理的唯一标准 XD
 
 ## Build Setup
 
