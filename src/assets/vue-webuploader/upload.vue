@@ -131,6 +131,10 @@ export default {
         //   console.log('md5解析完成: result=>', val);
         // });
       })
+      // 可以在这里设置请求头及参数
+      vm.uploader.on('uploadBeforeSend', (obj, data, head) => {
+        vm.$emit('uploadBeforeSend', obj, data, head)
+      })
       vm.uploader.on('uploadStart', (file) => {
         // 在这里可以准备好formData的数据
         // this.uploader.options.formData.key = this.keyGenerator(file);

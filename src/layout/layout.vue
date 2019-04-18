@@ -44,7 +44,6 @@ export default {
     }
   }
 }
-
 </script>
 <style lang="less" scoped>
 .layout {
@@ -76,7 +75,6 @@ export default {
     /deep/ .el-scrollbar__wrap {
       overflow: visible;
       overflow-x: hidden;
-      margin: 0 !important;
     }
 
     /deep/ .layout-view-content {
@@ -96,5 +94,4 @@ export default {
     padding-left: 64px;
   }
 }
-
 </style>

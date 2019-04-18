@@ -1,7 +1,7 @@
 <template>
   <div class="webupload-page">
     <p>基于webupload</p>
-    <p>可传类型['gif', 'jpg', 'jpeg', 'png']</p>
+    <p>可传类型{{accepts.split(',')}}</p>
     <div id="filePicker">选择文件</div>
     <div class="file-panel" id="file-box">
       <h5>文件列表</h5>
@@ -13,7 +13,7 @@
           <li class="file-status">{{file.status}}</li>
           <li class="file-operate">
             <!--  <a title="开始" @click="resume(file)"><i class="iconfont icon-control-play"></i></a>
-                        <a title="暂停" @click="stop(file)"><i class="iconfont icon-video-pause"></i></a>
+                  <a title="暂停" @click="stop(file)"><i class="iconfont icon-video-pause"></i></a>
  -->        <a title="移除" @click="remove(file)"><i class="el-icon-close"></i></a>
           </li>
           <li class="progress"></li>
@@ -28,6 +28,7 @@
       :url="url"
       :accepts="accepts"
       :formData="formData"
+      @uploadBeforeSend="uploadBeforeSend"
       @fileChange="fileChange"
       @progress="onProgress"
       @success="onSuccess"
@@ -46,7 +47,7 @@ export default {
     return {
       url: 'https://jsonplaceholder.typicode.com/posts/',
       formData: {},
-      accepts: ['gif', 'jpg', 'jpeg', 'png', 'bmp', 'webp'].join(),
+      accepts: '.xls,.ppt,.xlsx,.pptx,.docx,.doc,.txt,.zip,.rar,.png,.jpg,.gif,.psd,.pdf,.bmp',
       fileList: []
     }
   },
@@ -66,6 +67,11 @@ export default {
 
       console.log(file)
     },
+
+    uploadBeforeSend (obj, data, head) {
+      console.log(obj, data, head)
+    },
+
     onProgress (file, percent) {
       console.log($(`.file-${file.id} .progress`))
       $(`.file-${file.id} .progress`).css('width', percent * 100 + '%')
@@ -238,11 +244,11 @@ $h-row: 50px;
 
   .progress {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
-    height: $h-row - 1;
+    height: 3px;
     width: 0;
-    background-color: #E2EDFE;
+    background-color: #409EFF;
     z-index: -1;
   }
 
