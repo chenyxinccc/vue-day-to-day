@@ -1,10 +1,10 @@
 <template>
   <div class="drag-content">
-    <draggable :list="list" :group="{name: 'drag-test'}" filter=".undraggable" class="dragArea" @change="change">
+    <draggable :list="list" :group="{name: 'drag-test'}" :animation="300" filter=".undraggable" class="dragArea" @change="change">
       <div class="drag-content-box" v-for="(value, i) in list" :key="i" :id="'content'+value.id">
         {{value.name}}
         <div class="dndList-list">
-          <draggable :list="value.listArr" group="article" :id="'test'+value.id" style="height: 100px" @change="change">
+          <draggable :list="value.listArr" group="article" :animation="300" :id="'test'+value.id" style="height: 100px" @change="change">
             <div v-for="(element) in value.listArr" :key="element.id" :id="'box'+element.id" class="list-complete-item">
               <div class="list-complete-item-handle">{{element.name}}</div>
               <div>
@@ -23,7 +23,13 @@ import draggable from 'vuedraggable'
 export default {
   name: 'dragTest',
   components: { draggable },
-  watch: {},
+  created () {
+    // 兼容火狐拖拽打开新窗口
+    document.body.ondrop = function (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
+  },
   data () {
     return {
       startId: null,
@@ -43,6 +49,9 @@ export default {
         console.log(e.moved, 'move')
       }
     }
+  },
+  beforeDestroy () {
+    document.body.ondrop = null
   }
 }
 
