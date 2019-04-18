@@ -83,7 +83,7 @@ export default {
     right: -20px;
     cursor: pointer;
     z-index: 9;
-    transition: all .4s;
+    transition: all .2s;
   }
 
   .el-menu-vertical {

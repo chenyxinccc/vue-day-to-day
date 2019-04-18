@@ -53,15 +53,16 @@ export default {
   .layout-left-nav {
     width: 180px;
     height: 100%;
-    float: left;
+    position: absolute;
+    z-index: 99;
     transition: width .4s;
   }
 
   .layout-right-view {
-    width: calc(100% - 180px);
+    width: 100%;
     height: 100%;
     position: absolute;
-    left: 180px;
+    padding-left: 180px;
     transition: left .4s;
     overflow: hidden;
 
@@ -89,11 +90,10 @@ export default {
 }
 .layout-shrink {
   .layout-left-nav {
-    width: 64px !important;
+    width: 64px;
   }
   .layout-right-view {
-    width: calc(100% - 64px) !important;
-    left: 64px !important;
+    padding-left: 64px;
   }
 }
 
