@@ -73,7 +73,7 @@ export default {
 .layout-tag-content{
   height: 36px;
   line-height: 36px;
-  padding-left: 10px;
+  padding-left: 30px;
   white-space: nowrap;
   margin-right: 30px;
   overflow: hidden;

@@ -1,7 +1,7 @@
 <template>
-  <div class="layout">
+  <div class="layout" :class="{'layout-shrink': isShrink}">
     <div class="layout-left-nav">
-      <layout-menu></layout-menu>
+      <layout-menu :isShrink="isShrink" @setShrink="setShrink"/>
     </div>
     <div class="layout-right-view">
       <layout-nav></layout-nav>
@@ -21,7 +21,7 @@ export default {
   name: 'layout',
   data () {
     return {
-      isCollapse: false,
+      isShrink: false,
       routeData: []
     }
   },
@@ -33,6 +33,15 @@ export default {
   components: {
     layoutMenu,
     layoutNav
+  },
+  methods: {
+    setShrink () {
+      this.isShrink = !this.isShrink
+      // 补充提交resize事件, 防止echarts图标大小未更新
+      this.$nextTick(() => {
+        window.onresize && window.onresize()
+      })
+    }
   }
 }
 
@@ -45,6 +54,7 @@ export default {
     width: 180px;
     height: 100%;
     float: left;
+    transition: width .4s;
   }
 
   .layout-right-view {
@@ -52,6 +62,7 @@ export default {
     height: 100%;
     position: absolute;
     left: 180px;
+    transition: left .4s;
     overflow: hidden;
 
     /deep/ .el-scrollbar{
@@ -60,6 +71,7 @@ export default {
         height: 100%;
       }
     }
+
     /deep/ .el-scrollbar__wrap {
       overflow: visible;
       overflow-x: hidden;
@@ -72,6 +84,16 @@ export default {
       min-width: 800px;
       padding: 10px 0 10px 10px;
     }
+  }
+
+}
+.layout-shrink {
+  .layout-left-nav {
+    width: 64px !important;
+  }
+  .layout-right-view {
+    width: calc(100% - 64px) !important;
+    left: 64px !important;
   }
 }
 
