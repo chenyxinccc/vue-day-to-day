@@ -13,7 +13,10 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const env = process.env.NODE_ENV === 'testing'
   ? require('../config/test.env')
-  : require('../config/prod.env')
+  : {
+    NODE_ENV: '"production"',
+    HOST: JSON.stringify(process.argv[2]) || null
+  }
 
 const webpackConfig = merge(baseWebpackConfig, {
   module: {
