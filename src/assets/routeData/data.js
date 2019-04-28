@@ -22,5 +22,8 @@ const routeNav = [{
 }, {
   name: 'aesDemo',
   path: 'aesDemo'
+}, {
+  name: 'todoList',
+  path: 'todoList'
 }]
 export default routeNav

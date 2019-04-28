@@ -69,7 +69,21 @@ let router = new Router({
           meta: {
             title: 'aesDemo'
           }
+        }, {
+          path: '/todoList',
+          name: 'todoList',
+          component: () => import('@/components/todoList'),
+          meta: {
+            title: 'todoList'
+          }
         }]
+    }, {
+      path: '/notFind',
+      name: 'notFind',
+      component: () => import('@/components/notFind'),
+      meta: {
+        title: 'notFind'
+      }
     }
   ]
 })
